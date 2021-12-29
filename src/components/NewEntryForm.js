@@ -10,7 +10,7 @@ function NewEntryForm({ addEntry, clearEntry, name, value, isExpense, setName, s
       <EntryForm name={name} setName={setName}
                  value={value} setValue={setValue}
                  isExpense={isExpense} setIsExpense={setIsExpense} />
-      <ButtonSaveOrCancel addEntry={addEntry} clearEntry={clearEntry} />
+      <ButtonSaveOrCancel addEntry={addEntry} clearEntry={clearEntry} name={name} value={value} />
     </Form>
   )
 }
