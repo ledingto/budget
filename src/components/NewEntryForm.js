@@ -7,6 +7,12 @@ function NewEntryForm({ addEntry }) {
   const [ value, setValue ] = useState('');
   const [ isExpense, setIsExpense ] = useState(true);
 
+  function reinitialize() {
+    setName('');
+    setValue('');
+    setIsExpense(true);
+  }
+
   return (
     <Form unstackable>
       <Form.Group>
@@ -20,7 +26,7 @@ function NewEntryForm({ addEntry }) {
       <Segment compact>
         <Checkbox label="Expense" checked={isExpense} onChange={()=>setIsExpense(!isExpense)} />
       </Segment>
-      <ButtonSaveOrCancel addEntry={addEntry} name={name} value={value} isExpense={isExpense} />
+      <ButtonSaveOrCancel addEntry={addEntry} clear={reinitialize} name={name} value={value} isExpense={isExpense} />
     </Form>
   )
 }
