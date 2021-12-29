@@ -1,10 +1,11 @@
 import React from 'react';
 import EntryLine from "./EntryLine";
 
-function EntryLines({ entries }) {
+function EntryLines({ entries, deleteEntry }) {
   return (
     entries.map((entry,index) => {
-        return <EntryLine key={index} entry={entry} />
+        entry.id = index;
+        return <EntryLine key={index} {...entry} deleteEntry={deleteEntry} />
     })
   )
 }

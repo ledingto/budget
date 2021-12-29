@@ -10,6 +10,11 @@ import EntryLines from "./components/EntryLines";
 function App() {
   const [entries, setEntries] = useState(initialEntries);
 
+  function deleteEntry(id) {
+    const result = entries.filter((entry) => entry.id !== id);
+    setEntries(result); // modifyState
+  }
+
   return (
     <Container>
       <MainHeader title="Budget" />
@@ -19,7 +24,7 @@ function App() {
       <DisplayBalances />
 
       <MainHeader title="History" type="h3" />
-      <EntryLines entries={entries} />
+      <EntryLines entries={entries} deleteEntry={deleteEntry} />
 
       <MainHeader title="Add New Transaction" type="h3" />
       <NewEntryForm />
