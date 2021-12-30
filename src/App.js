@@ -9,6 +9,11 @@ import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
 
 function App() {
+  // Budget Totals
+  const [ balance, setBalance ] = useState(0);
+  const [ income, setIncome ] = useState(0);
+  const [ expenses, setExpenses ] = useState(0);
+
   // Entry Lines
   const [entries, setEntries] = useState(initialEntries);
 
@@ -20,6 +25,24 @@ function App() {
 
   // Modal
   const [ isOpen, setIsOpen ] = useState(false)
+
+  useEffect(() => {
+    let incomeTotal = 0, expenseTotal = 0;
+    entries.forEach(entry => {
+      if (entry.isExpense) {
+        expenseTotal += parseFloat(entry.value);
+      } else {
+        incomeTotal += parseFloat(entry.value);
+      }
+    });
+
+    setExpenses(expenseTotal);
+    setIncome(incomeTotal);
+  }, [entries]);
+
+  useEffect(() => {
+    setBalance(income - expenses);
+  }, [income, expenses])
 
   useEffect(() => {
     if (!isOpen && id !== '') {
@@ -65,9 +88,9 @@ function App() {
     <Container>
       <MainHeader title="Budget" />
 
-      <DisplayBalance title="Your Balance" value="2,550.00" size="small" />
+      <DisplayBalance title="Your Balance" value={balance} size="small" />
 
-      <DisplayBalances />
+      <DisplayBalances income={income} expenses={expenses} />
 
       <MainHeader title="History" type="h3" />
       <EntryLines entries={entries} deleteEntry={deleteEntry} editEntry={editEntry} />

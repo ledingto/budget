@@ -5,7 +5,7 @@ function DisplayBalance({ title, value, color = 'black', size = 'tiny' }) {
   return (
     <Statistic size={size} color={color}>
       <Statistic.Label>{title}:</Statistic.Label>
-      <Statistic.Value>{value}</Statistic.Value>
+      <Statistic.Value>${value}</Statistic.Value>
     </Statistic>
   )
 }
