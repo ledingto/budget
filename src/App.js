@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
 
-import { createStore, combineReducers } from "redux";
+import configureStore from "./store/configureStore";
 
 function App() {
   // Budget Totals
@@ -58,44 +58,7 @@ function App() {
   }, [isOpen]);
 
   // Redux Store
-  function entriesReducer(state = initialEntries, action) {
-    switch (action.type) {
-      case 'ADD_ENTRY':
-        const entriesWithAddition = state.concat(action.payload);
-        return entriesWithAddition;
-      case 'REMOVE_ENTRY':
-        const entriesWithRemoval = state.filter((entry) => entry.id !== action.payload.id);
-        return entriesWithRemoval;
-      default:
-        return state;
-    };
-  };
-
-  const combinedReducers = combineReducers({
-    entries: entriesReducer,
-  });
-
-  const store = createStore(combinedReducers);
-  store.subscribe(() => {
-    console.log("store: ", store.getState());
-  })
-
-  const payloadExample = {
-    id: '',
-    name: 'New Item',
-    value: '100',
-    isExpense: true,
-  };
-
-  function addEntryRedux(payload) {
-    return { type: 'ADD_ENTRY', payload };
-  }
-  function removeEntryRedux(id) {
-    return { type: 'REMOVE_ENTRY', payload: { id } }
-  }
-
-  store.dispatch(addEntryRedux(payloadExample));
-  store.dispatch(removeEntryRedux(payloadExample.id));
+  configureStore();
 
   function deleteEntry(id) {
     const result = entries.filter((entry) => entry.id !== id);
