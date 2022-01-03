@@ -75,15 +75,22 @@ function App() {
     console.log("store: ", store.getState());
   })
 
-  const payload = {
+  const payloadExample = {
     id: '',
     name: 'New Item',
     value: '100',
     isExpense: true,
   };
 
-  store.dispatch({ type: 'ADD_ENTRY', payload });
-  store.dispatch({ type: 'REMOVE_ENTRY', payload });
+  function addEntryRedux(payload) {
+    return { type: 'ADD_ENTRY', payload };
+  }
+  function removeEntryRedux(id) {
+    return { type: 'REMOVE_ENTRY', payload: { id } }
+  }
+
+  store.dispatch(addEntryRedux(payloadExample));
+  store.dispatch(removeEntryRedux(payloadExample.id));
 
   function deleteEntry(id) {
     const result = entries.filter((entry) => entry.id !== id);
