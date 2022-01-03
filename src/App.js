@@ -20,6 +20,7 @@ function App() {
   const entries = useSelector(state => state.entries);
 
   // Entry Form
+  // duplicated (used by modal and entry form)
   const [ id, setId ] = useState('');
   const [ name, setName ] = useState('');
   const [ value, setValue ] = useState('');
@@ -68,12 +69,7 @@ function App() {
     }
   }
 
-  function addEntry() {
-    const result = entries.concat({name, value, isExpense});
-    // setEntries(result);
-    clearEntry();
-  }
-
+  // duplicated (used by modal and entry form)
   function clearEntry() {
     setId('')
     setName('');
@@ -93,10 +89,7 @@ function App() {
       <EntryLines entries={entries} editEntry={editEntry} />
 
       <MainHeader title="Add New Transaction" type="h3" />
-      <NewEntryForm addEntry={addEntry} clearEntry={clearEntry}
-                    name={name} setName={setName}
-                    value={value} setValue={setValue}
-                    isExpense={isExpense} setIsExpense={setIsExpense} />
+      <NewEntryForm />
       <ModalEdit isOpen={isOpen} setIsOpen={setIsOpen}
                  name={name} setName={setName}
                  value={value} setValue={setValue}
