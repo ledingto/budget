@@ -8,6 +8,8 @@ import React, { useState, useEffect } from "react";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
 
+import { createStore } from "redux";
+
 function App() {
   // Budget Totals
   const [ balance, setBalance ] = useState(0);
@@ -54,6 +56,34 @@ function App() {
       clearEntry();
     }
   }, [isOpen]);
+
+  // Redux Store
+  const store = createStore((state = initialEntries, action) => {
+    console.log(action.type)
+    switch (action.type) {
+      case 'ADD_ENTRY':
+        const entriesWithAddition = state.concat(action.payload);
+        return entriesWithAddition;
+      case 'REMOVE_ENTRY':
+        const entriesWithRemoval = state.filter((entry) => entry.id !== action.payload.id);
+        return entriesWithRemoval;
+      default:
+        return state;
+    }
+  });
+  store.subscribe(() => {
+    console.log("store: ", store.getState());
+  })
+
+  const payload = {
+    id: '',
+    name: 'New Item',
+    value: '100',
+    isExpense: true,
+  };
+
+  store.dispatch({ type: 'ADD_ENTRY', payload });
+  store.dispatch({ type: 'REMOVE_ENTRY', payload });
 
   function deleteEntry(id) {
     const result = entries.filter((entry) => entry.id !== id);
