@@ -11,6 +11,10 @@
     "redux": "^4.1.2",
     "semantic-ui-react": "^2.0.4"
   },
+  "devDependencies": {
+    "redux-devtools": "^3.7.0",
+    "redux-devtools-extension": "^2.13.9"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -34,8 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "redux-devtools": "^3.7.0"
   }
 }
