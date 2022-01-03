@@ -71,7 +71,7 @@ function App() {
 
   // duplicated (used by modal and entry form)
   function clearEntry() {
-    setId('')
+    setId('');
     setName('');
     setValue('');
     setIsExpense(true);
