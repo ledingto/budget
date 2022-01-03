@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
 
-import configureStore from "./store/configureStore";
+import { useSelector } from 'react-redux';
 
 function App() {
   // Budget Totals
@@ -17,7 +17,7 @@ function App() {
   const [ expenses, setExpenses ] = useState(0);
 
   // Entry Lines
-  const [entries, setEntries] = useState(initialEntries);
+  const entries = useSelector(state => state.entries);
 
   // Entry Form
   const [ id, setId ] = useState('');
@@ -52,18 +52,10 @@ function App() {
       result[id].name = name;
       result[id].value = value;
       result[id].isExpense = isExpense;
-      setEntries(result);
+      // setEntries(result);
       clearEntry();
     }
   }, [isOpen]);
-
-  // Redux Store
-  configureStore();
-
-  function deleteEntry(id) {
-    const result = entries.filter((entry) => entry.id !== id);
-    setEntries(result);
-  }
 
   function editEntry(id) {
     if(id !== '') {
@@ -78,7 +70,7 @@ function App() {
 
   function addEntry() {
     const result = entries.concat({name, value, isExpense});
-    setEntries(result);
+    // setEntries(result);
     clearEntry();
   }
 
@@ -98,7 +90,7 @@ function App() {
       <DisplayBalances income={income} expenses={expenses} />
 
       <MainHeader title="History" type="h3" />
-      <EntryLines entries={entries} deleteEntry={deleteEntry} editEntry={editEntry} />
+      <EntryLines entries={entries} editEntry={editEntry} />
 
       <MainHeader title="Add New Transaction" type="h3" />
       <NewEntryForm addEntry={addEntry} clearEntry={clearEntry}
@@ -114,10 +106,3 @@ function App() {
 }
 
 export default App;
-
-const initialEntries = [
-  { name: "Restaurant", value: "10.00", isExpense: true },
-  { name: "Grocery", value: "44.00", isExpense: true },
-  { name: "Paycheck", value: "2500.00", isExpense: false },
-  { name: "Rent", value: "1000.00", isExpense: true },
-]

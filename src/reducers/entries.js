@@ -1,4 +1,4 @@
-export default function entriesReducer(state = initialEntriesCopy, action) {
+export default function entriesReducer(state = initialEntries, action) {
   switch (action.type) {
     case 'ADD_ENTRY':
       const entriesWithAddition = state.concat(action.payload);
@@ -11,7 +11,7 @@ export default function entriesReducer(state = initialEntriesCopy, action) {
   };
 };
 
-const initialEntriesCopy = [
+const initialEntries = [
   { name: "Restaurant", value: "10.00", isExpense: true },
   { name: "Grocery", value: "44.00", isExpense: true },
   { name: "Paycheck", value: "2500.00", isExpense: false },
