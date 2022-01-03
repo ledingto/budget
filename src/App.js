@@ -58,8 +58,7 @@ function App() {
   }, [isOpen]);
 
   // Redux Store
-  const store = createStore((state = initialEntries, action) => {
-    console.log(action.type)
+  function entriesReducer(state = initialEntries, action) {
     switch (action.type) {
       case 'ADD_ENTRY':
         const entriesWithAddition = state.concat(action.payload);
@@ -69,8 +68,10 @@ function App() {
         return entriesWithRemoval;
       default:
         return state;
-    }
-  });
+    };
+  };
+
+  const store = createStore(entriesReducer);
   store.subscribe(() => {
     console.log("store: ", store.getState());
   })
