@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {
+      "id": "0",
+      "name": "Restaurant",
+      "value": "10.00",
+      "isExpense": true
+    },
+    {
+      "id": "1",
+      "name": "Grocery",
+      "value": "44.00",
+      "isExpense": true
+    },
+    {
+      "id": "2",
+      "name": "Paycheck",
+      "value": "2500.00",
+      "isExpense": false
+    },
+    {
+      "id": "3",
+      "name": "Rent",
+      "value": "1000.00",
+      "isExpense": true
+    }
+  ]
+}
