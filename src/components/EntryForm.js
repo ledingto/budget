@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Segment, Checkbox } from "semantic-ui-react";
 
-function EntryForm({ name, setName, value, setValue, isExpense, setIsExpense }) {
+function EntryForm({ name, value, isExpense, setName, setValue, setIsExpense }) {
   return (
     <>
       <Form.Group>

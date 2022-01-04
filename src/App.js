@@ -16,19 +16,17 @@ function App() {
   const [ income, setIncome ] = useState(0);
   const [ expenses, setExpenses ] = useState(0);
 
-  // Entry Lines
+  // Entry Lines and Modal
   const entries = useSelector(state => state.entries);
+  const { isOpen, id } = useSelector(state => state.modals);
+  const [ selectedEntry, setSelectedEntry ] = useState();
 
-  // Entry Form
-  // duplicated (used by modal and entry form)
-  const [ id, setId ] = useState('');
-  const [ name, setName ] = useState('');
-  const [ value, setValue ] = useState('');
-  const [ isExpense, setIsExpense ] = useState(true);
+  useEffect(() => {
+    const index = entries.findIndex(entry => entry.id === id);
+    setSelectedEntry(entries[index]);
+  }, [isOpen]);
 
-  // Modal
-  const [ isOpen, setIsOpen ] = useState(false)
-
+  // Income, Expenses, and Budget Calculations
   useEffect(() => {
     let incomeTotal = 0, expenseTotal = 0;
     entries.forEach(entry => {
@@ -42,40 +40,9 @@ function App() {
     setExpenses(expenseTotal);
     setIncome(incomeTotal);
   }, [entries]);
-
   useEffect(() => {
     setBalance(income - expenses);
   }, [income, expenses])
-
-  useEffect(() => {
-    if (!isOpen && id !== '') {
-      let result = [...entries];
-      result[id].name = name;
-      result[id].value = value;
-      result[id].isExpense = isExpense;
-      // setEntries(result);
-      clearEntry();
-    }
-  }, [isOpen]);
-
-  function editEntry(id) {
-    if(id !== '') {
-      const entry = entries.filter((entry) => entry.id === id)[0];
-      setId(entry.id);
-      setName(entry.name);
-      setValue(entry.value);
-      setIsExpense(entry.isExpense);
-      setIsOpen(true);
-    }
-  }
-
-  // duplicated (used by modal and entry form)
-  function clearEntry() {
-    setId('');
-    setName('');
-    setValue('');
-    setIsExpense(true);
-  }
 
   return (
     <Container>
@@ -86,14 +53,11 @@ function App() {
       <DisplayBalances income={income} expenses={expenses} />
 
       <MainHeader title="History" type="h3" />
-      <EntryLines entries={entries} editEntry={editEntry} />
+      <EntryLines entries={entries} />
 
       <MainHeader title="Add New Transaction" type="h3" />
       <NewEntryForm />
-      <ModalEdit isOpen={isOpen} setIsOpen={setIsOpen}
-                 name={name} setName={setName}
-                 value={value} setValue={setValue}
-                 isExpense={isExpense} setIsExpense={setIsExpense} />
+      <ModalEdit isOpen={isOpen} {...selectedEntry} />
     </Container>
   );
 }

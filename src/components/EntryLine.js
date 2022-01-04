@@ -2,8 +2,9 @@ import React from 'react';
 import { Grid, Icon, Segment } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import { removeEntryRedux } from "../actions/entries";
+import { openEditModal } from "../actions/modals";
 
-function EntryLine({ id, name, value, isExpense = false, editEntry }) {
+function EntryLine({ id, name, value, isExpense }) {
   const dispatch = useDispatch();
   return (
     <>
@@ -13,7 +14,7 @@ function EntryLine({ id, name, value, isExpense = false, editEntry }) {
             <Grid.Column width={10} textAlign="left">{name}</Grid.Column>
             <Grid.Column width={3} textAlign="right">{value}</Grid.Column>
             <Grid.Column width={3} textAlign="center">
-              <Icon name="edit" onClick={() => editEntry(id)} />
+              <Icon name="edit" onClick={() => dispatch(openEditModal(id))} />
               <Icon name="trash" onClick={() => dispatch(removeEntryRedux(id))} />
             </Grid.Column>
           </Grid.Row>
