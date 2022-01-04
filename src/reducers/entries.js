@@ -1,7 +1,9 @@
 import entriesTypes from "../actions/entries";
 
-export default function entriesReducer(state = initialEntries, action) {
+export default function entriesReducer(state = [], action) {
   switch (action.type) {
+    case entriesTypes.POPULATE_ENTRIES:
+      return action.payload;
     case entriesTypes.ADD_ENTRY:
       const entriesWithAddition = state.concat(action.payload);
       return entriesWithAddition;
@@ -17,10 +19,3 @@ export default function entriesReducer(state = initialEntries, action) {
       return state;
   };
 };
-
-const initialEntries = [
-  { id: "0", name: "Restaurant", value: "10.00", isExpense: true },
-  { id: "1", name: "Grocery", value: "44.00", isExpense: true },
-  { id: "2", name: "Paycheck", value: "2500.00", isExpense: false },
-  { id: "3", name: "Rent", value: "1000.00", isExpense: true },
-]

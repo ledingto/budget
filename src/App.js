@@ -7,8 +7,8 @@ import DisplayBalances from "./components/DisplayBalances";
 import React, { useState, useEffect } from "react";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
-
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllEntries } from "./actions/entries";
 
 function App() {
   // Budget Totals
@@ -21,6 +21,14 @@ function App() {
   const { isOpen, id } = useSelector(state => state.modals);
   const [ selectedEntry, setSelectedEntry ] = useState();
 
+  const dispatch = useDispatch();
+
+  // Populate History on App Start
+  useEffect(() => {
+    dispatch(getAllEntries());
+  }, [])
+
+  // Update Entry Based on Modal Input
   useEffect(() => {
     const index = entries.findIndex(entry => entry.id === id);
     setSelectedEntry(entries[index]);
