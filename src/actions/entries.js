@@ -20,5 +20,5 @@ export function removeEntryRedux(id) {
   return { type: types.REMOVE_ENTRY, payload: { id } }
 }
 export function updateEntryRedux(payload) {
-  return { type: types.UPDATE_ENTRY, payload: payload }
+  return { type: types.UPDATE_ENTRY, payload }
 }
